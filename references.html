@@ -13,6 +13,7 @@
       --muted: #5a6170;
       --line: #e6e8f0;
       --card: #ffffff;
+      --soft: #f7f8fc;
     }
 
     * { box-sizing: border-box; }
@@ -66,6 +67,37 @@
       line-height: 1.5;
     }
 
+    .section {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 1.2rem;
+      line-height: 1.3;
+      font-weight: 800;
+    }
+
+    .section-note {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.6;
+      background: var(--soft);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
     .refs {
       list-style: none;
       margin: 0;
@@ -112,7 +144,8 @@
         padding: 18px;
       }
 
-      .ref {
+      .ref,
+      .section-note {
         font-size: 0.95rem;
         line-height: 1.65;
       }
@@ -125,53 +158,99 @@
 
     <main class="content">
       <h1 class="page-title">References</h1>
-      <p class="intro">References cited in the poster.</p>
+      <p class="intro">References cited in the poster and supporting methods notes.</p>
 
-      <ul class="refs">
-        <li>
-          <p class="ref">Bouvy, J.C., De Bruin, M.L. and Koopmanschap, M.A. (2015) ‘Epidemiology of adverse drug reactions in Europe: a review of recent observational studies’, Drug Safety, 38(5), pp. 437–453. Available at: <a href="https://doi.org/10.1007/s40264-015-0281-0" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s40264-015-0281-0</a>.</p>
-        </li>
+      <section class="section">
+        <h2 class="section-title">Poster references</h2>
+        <ul class="refs">
+          <li>
+            <p class="ref">Bouvy, J.C., De Bruin, M.L. and Koopmanschap, M.A. (2015) ‘Epidemiology of adverse drug reactions in Europe: a review of recent observational studies’, Drug Safety, 38(5), pp. 437–453. Available at: <a href="https://doi.org/10.1007/s40264-015-0281-0" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s40264-015-0281-0</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">Chen, Y.-H. et al. (2022) ‘Predicting adverse drug effects: A heterogeneous graph convolution network with a multi-layer perceptron approach.’, PloS one, 17(12), p. e0266435. Available at: <a href="https://doi.org/10.1371/journal.pone.0266435" target="_blank" rel="noopener noreferrer">https://doi.org/10.1371/journal.pone.0266435</a>.</p>
-        </li>
+          <li>
+            <p class="ref">Chen, Y.-H. et al. (2022) ‘Predicting adverse drug effects: A heterogeneous graph convolution network with a multi-layer perceptron approach.’, PloS one, 17(12), p. e0266435. Available at: <a href="https://doi.org/10.1371/journal.pone.0266435" target="_blank" rel="noopener noreferrer">https://doi.org/10.1371/journal.pone.0266435</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">FAERS Quarterly Data Extract Files (no date). Available at: <a href="https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html" target="_blank" rel="noopener noreferrer">https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html</a> (Accessed: 13 October 2025).</p>
-        </li>
+          <li>
+            <p class="ref">FAERS Quarterly Data Extract Files (no date). Available at: <a href="https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html" target="_blank" rel="noopener noreferrer">https://fis.fda.gov/extensions/FPD-QDE-FAERS/FPD-QDE-FAERS.html</a> (Accessed: 13 October 2025).</p>
+          </li>
 
-        <li>
-          <p class="ref">Hamilton, W.L., Ying, R. and Leskovec, J. (2017) ‘Inductive representation learning on large graphs’, Proceedings of the 31st International Conference on Neural Information Processing Systems. Red Hook, NY, USA: Curran Associates Inc. (NIPS’17), pp. 1025–1035. Available at: <a href="https://dl.acm.org/doi/10.5555/3294771.3294869" target="_blank" rel="noopener noreferrer">https://dl.acm.org/doi/10.5555/3294771.3294869</a> (Accessed: 28 February 2026).</p>
-        </li>
+          <li>
+            <p class="ref">Hamilton, W.L., Ying, R. and Leskovec, J. (2017) ‘Inductive representation learning on large graphs’, Proceedings of the 31st International Conference on Neural Information Processing Systems. Red Hook, NY, USA: Curran Associates Inc. (NIPS’17), pp. 1025–1035. Available at: <a href="https://dl.acm.org/doi/10.5555/3294771.3294869" target="_blank" rel="noopener noreferrer">https://dl.acm.org/doi/10.5555/3294771.3294869</a> (Accessed: 28 February 2026).</p>
+          </li>
 
-        <li>
-          <p class="ref">Keshavarz, A. and Lakizadeh, A. (2024) ‘PU-GNN: A Positive-Unlabeled Learning Method for Polypharmacy Side-Effects Detection Based on Graph Neural Networks’, International Journal of Intelligent Systems, 2024(1), p. 4749668. Available at: <a href="https://doi.org/10.1155/2024/4749668" target="_blank" rel="noopener noreferrer">https://doi.org/10.1155/2024/4749668</a>.</p>
-        </li>
+          <li>
+            <p class="ref">Keshavarz, A. and Lakizadeh, A. (2024) ‘PU-GNN: A Positive-Unlabelled Learning Method for Polypharmacy Side-Effects Detection Based on Graph Neural Networks’, International Journal of Intelligent Systems, 2024(1), p. 4749668. Available at: <a href="https://doi.org/10.1155/2024/4749668" target="_blank" rel="noopener noreferrer">https://doi.org/10.1155/2024/4749668</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">Kuhn, M. et al. (2016) ‘The SIDER database of drugs and side effects’, Nucleic Acids Research, 44(D1), pp. D1075-1079. Available at: <a href="https://doi.org/10.1093/nar/gkv1075" target="_blank" rel="noopener noreferrer">https://doi.org/10.1093/nar/gkv1075</a>.</p>
-        </li>
+          <li>
+            <p class="ref">Kuhn, M. et al. (2016) ‘The SIDER database of drugs and side effects’, Nucleic Acids Research, 44(D1), pp. D1075-1079. Available at: <a href="https://doi.org/10.1093/nar/gkv1075" target="_blank" rel="noopener noreferrer">https://doi.org/10.1093/nar/gkv1075</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">Kwak, H. et al. (2020) ‘Drug-Disease Graph: Predicting Adverse Drug Reaction Signals via Graph Neural Network with Clinical Data’, Advances in Knowledge Discovery and Data Mining. Switzerland: Springer International Publishing AG (Lecture Notes in Computer Science), pp. 633–644. Available at: <a href="https://doi.org/10.1007/978-3-030-47436-2_48" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/978-3-030-47436-2_48</a>.</p>
-        </li>
+          <li>
+            <p class="ref">Kwak, H. et al. (2020) ‘Drug-Disease Graph: Predicting Adverse Drug Reaction Signals via Graph Neural Network with Clinical Data’, Advances in Knowledge Discovery and Data Mining. Switzerland: Springer International Publishing AG (Lecture Notes in Computer Science), pp. 633–644. Available at: <a href="https://doi.org/10.1007/978-3-030-47436-2_48" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/978-3-030-47436-2_48</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">Tatonetti, N.P. et al. (2012) ‘Data-driven prediction of drug effects and interactions’, Science Translational Medicine, 4(125), p. 125ra31. Available at: <a href="https://doi.org/10.1126/scitranslmed.3003377" target="_blank" rel="noopener noreferrer">https://doi.org/10.1126/scitranslmed.3003377</a>.</p>
-        </li>
+          <li>
+            <p class="ref">Tatonetti, N.P. et al. (2012) ‘Data-driven prediction of drug effects and interactions’, Science Translational Medicine, 4(125), p. 125ra31. Available at: <a href="https://doi.org/10.1126/scitranslmed.3003377" target="_blank" rel="noopener noreferrer">https://doi.org/10.1126/scitranslmed.3003377</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">Wang, F. et al. (2024) ‘Uncertainty in Graph Neural Networks: A Survey’. Available at: <a href="https://doi.org/10.48550/arxiv.2403.07185" target="_blank" rel="noopener noreferrer">https://doi.org/10.48550/arxiv.2403.07185</a>.</p>
-        </li>
+          <li>
+            <p class="ref">Wang, F. et al. (2024) ‘Uncertainty in Graph Neural Networks: A Survey’. Available at: <a href="https://doi.org/10.48550/arxiv.2403.07185" target="_blank" rel="noopener noreferrer">https://doi.org/10.48550/arxiv.2403.07185</a>.</p>
+          </li>
 
-        <li>
-          <p class="ref">WHO Launches Global Effort to Halve Medication-Related Errors in 5 Years (no date). Available at: <a href="https://www.who.int/news/item/29-03-2017-who-launches-global-effort-to-halve-medication-related-errors-in-5-years" target="_blank" rel="noopener noreferrer">https://www.who.int/news/item/29-03-2017-who-launches-global-effort-to-halve-medication-related-errors-in-5-years</a> (Accessed: 28 February 2026).</p>
-        </li>
+          <li>
+            <p class="ref">WHO Launches Global Effort to Halve Medication-Related Errors in 5 Years (no date). Available at: <a href="https://www.who.int/news/item/29-03-2017-who-launches-global-effort-to-halve-medication-related-errors-in-5-years" target="_blank" rel="noopener noreferrer">https://www.who.int/news/item/29-03-2017-who-launches-global-effort-to-halve-medication-related-errors-in-5-years</a> (Accessed: 28 February 2026).</p>
+          </li>
 
-        <li>
-          <p class="ref">Zhao, Y. et al. (2022) ‘Machine Learning in Causal Inference: Application in Pharmacovigilance’, Drug safety, 45(5), pp. 459–476. Available at: <a href="https://doi.org/10.1007/s40264-022-01155-6" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s40264-022-01155-6</a>.</p>
-        </li>
-      </ul>
+          <li>
+            <p class="ref">Zhao, Y. et al. (2022) ‘Machine Learning in Causal Inference: Application in Pharmacovigilance’, Drug safety, 45(5), pp. 459–476. Available at: <a href="https://doi.org/10.1007/s40264-022-01155-6" target="_blank" rel="noopener noreferrer">https://doi.org/10.1007/s40264-022-01155-6</a>.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Additional methods references</h2>
+        <p class="section-note">Overlapping references already listed above and therefore not repeated here: Kuhn, M. et al. (2016) and Tatonetti, N.P. et al. (2012).</p>
+
+        <ul class="refs">
+          <li>
+            <p class="ref">Banda, J.M. et al. (2016) ‘A curated and standardised adverse drug event resource to accelerate drug safety research’, Scientific Data, 3(1), p. 160026. Available at: <a href="https://doi.org/10.1038/sdata.2016.26" target="_blank" rel="noopener noreferrer">https://doi.org/10.1038/sdata.2016.26</a>.</p>
+          </li>
+
+          <li>
+            <p class="ref">Benjamini, Y. and Hochberg, Y. (1995) ‘Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing’, Journal of the Royal Statistical Society: Series B (Methodological), 57(1), pp. 289–300. Available at: <a href="https://doi.org/10.1111/j.2517-6161.1995.tb02031.x" target="_blank" rel="noopener noreferrer">https://doi.org/10.1111/j.2517-6161.1995.tb02031.x</a>.</p>
+          </li>
+
+          <li>
+            <p class="ref">Brier, G.W. (1950) ‘Verification of forecasts expressed in terms of probability’, Monthly Weather Review, 78(1), pp. 1–3. Available at: <a href="https://doi.org/10.1175/1520-0493(1950)078%253C0001:VOFEIT%253E2.0.CO;2" target="_blank" rel="noopener noreferrer">https://doi.org/10.1175/1520-0493(1950)078%253C0001:VOFEIT%253E2.0.CO;2</a>.</p>
+          </li>
+
+          <li>
+            <p class="ref">Davis, J. and Goadrich, M. (2006) ‘The relationship between Precision-Recall and ROC curves’, Proceedings of the 23rd international conference on Machine learning - ICML ’06. the 23rd international conference, Pittsburgh, Pennsylvania: ACM Press, pp. 233–240. Available at: <a href="https://doi.org/10.1145/1143844.1143874" target="_blank" rel="noopener noreferrer">https://doi.org/10.1145/1143844.1143874</a>.</p>
+          </li>
+
+          <li>
+            <p class="ref">Fawcett, T. (2006) ‘An introduction to ROC analysis’, Pattern Recognition Letters, 27(8), pp. 861–874. Available at: <a href="https://doi.org/10.1016/j.patrec.2005.10.010" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.patrec.2005.10.010</a>.</p>
+          </li>
+
+          <li>
+            <p class="ref">Gal, Y. and Ghahramani, Z. (2016) ‘Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning’, Proceedings of The 33rd International Conference on Machine Learning. International Conference on Machine Learning, PMLR, pp. 1050–1059. Available at: <a href="https://proceedings.mlr.press/v48/gal16.html" target="_blank" rel="noopener noreferrer">https://proceedings.mlr.press/v48/gal16.html</a> (Accessed: 28 February 2026).</p>
+          </li>
+
+          <li>
+            <p class="ref">Guo, C. et al. (no date) ‘On Calibration of Modern Neural Networks’.</p>
+          </li>
+
+          <li>
+            <p class="ref">Kaufman, S. et al. (2012) ‘Leakage in data mining: Formulation, detection, and avoidance’, ACM Trans. Knowl. Discov. Data, 6(4), p. 15:1-15:21. Available at: <a href="https://doi.org/10.1145/2382577.2382579" target="_blank" rel="noopener noreferrer">https://doi.org/10.1145/2382577.2382579</a>.</p>
+          </li>
+
+          <li>
+            <p class="ref">van Puijenbroek, E.P. et al. (2002) ‘A comparison of measures of disproportionality for signal detection in spontaneous reporting systems for adverse drug reactions’, Pharmacoepidemiology and Drug Safety, 11(1), pp. 3–10. Available at: <a href="https://doi.org/10.1002/pds.668" target="_blank" rel="noopener noreferrer">https://doi.org/10.1002/pds.668</a>.</p>
+          </li>
+        </ul>
+      </section>
     </main>
   </div>
 </body>
