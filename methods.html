@@ -13,7 +13,7 @@
       --muted: #5a6170;
       --line: #e6e8f0;
       --card: #ffffff;
-      --bg: #fafafa;
+      --soft: #f7f8fc;
     }
 
     * { box-sizing: border-box; }
@@ -21,7 +21,7 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      background: #fafafa;
       color: var(--text);
     }
 
@@ -55,7 +55,7 @@
     .page-title {
       margin: 0 0 8px;
       color: var(--gold);
-      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
       line-height: 1.1;
       font-weight: 800;
     }
@@ -68,15 +68,13 @@
     }
 
     .section {
-      padding-top: 18px;
-      margin-top: 18px;
+      padding: 18px 0;
       border-top: 1px solid var(--line);
     }
 
     .section:first-of-type {
       border-top: 0;
       padding-top: 0;
-      margin-top: 0;
     }
 
     h2 {
@@ -92,22 +90,23 @@
       font-size: 0.98rem;
     }
 
-    ul {
-      margin: 0 0 12px 1.2rem;
+    ul, ol {
+      margin: 0 0 12px 1.25rem;
       padding: 0;
     }
 
     li {
       margin: 0 0 8px;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-size: 0.98rem;
     }
 
-    .note {
-      background: #f7f8fc;
-      border-left: 4px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin: 12px 0;
+    code {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.95em;
+      background: var(--soft);
+      padding: 0.08em 0.28em;
+      border-radius: 4px;
     }
 
     .table-wrap {
@@ -115,26 +114,26 @@
       margin: 12px 0;
       border: 1px solid var(--line);
       border-radius: 10px;
+      background: #fff;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 780px;
-      background: #fff;
+      min-width: 760px;
     }
 
     th, td {
       padding: 10px 12px;
-      border-bottom: 1px solid var(--line);
       text-align: left;
+      border-bottom: 1px solid var(--line);
       vertical-align: top;
       font-size: 0.95rem;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     th {
-      background: #f7f8fc;
+      background: var(--soft);
       color: var(--navy);
       font-weight: 700;
     }
@@ -145,15 +144,11 @@
 
     .quote {
       margin: 12px 0 0;
-      padding: 14px;
-      background: #f7f8fc;
-      border: 1px solid var(--line);
-      border-radius: 10px;
+      padding: 14px 16px;
+      background: var(--soft);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
       line-height: 1.7;
-    }
-
-    strong {
-      color: var(--navy);
     }
 
     @media (max-width: 760px) {
@@ -182,8 +177,10 @@
 
       <section class="section">
         <h2>1) What this study is trying to answer</h2>
-        <p>The task in this study is a control task:</p>
-        <p><strong>Given a drug-event pair, predict whether it is a FAERS signal pair or a FAERS non-signal pair.</strong></p>
+        <p>The task in this experiment is a control task:</p>
+        <ul>
+          <li>Given a drug-event pair, predict whether it is a FAERS signal pair or a FAERS non-signal pair.</li>
+        </ul>
         <p>This is not PU-learning discovery on unobserved pairs. It is a supervised classification task on observed FAERS pairs.</p>
       </section>
 
@@ -191,38 +188,38 @@
         <h2>2) Data used</h2>
         <p>We combine three sources:</p>
         <ul>
-          <li><strong>FAERS</strong>: spontaneous adverse-event reports</li>
-          <li><strong>OFFSIDES</strong>: side-effect evidence from a separate source</li>
-          <li><strong>SIDER</strong>: known side effects from labels</li>
+          <li>FAERS: spontaneous adverse-event reports (Banda et al., 2016)</li>
+          <li>OFFSIDES: side-effect evidence from a separate source (Tatonetti et al., 2012)</li>
+          <li>SIDER: known side effects from labels (Kuhn et al., 2016)</li>
         </ul>
       </section>
 
       <section class="section">
         <h2>3) How labels were defined (exact rule)</h2>
-        <p>A drug-event pair was labelled as a positive signal if all of the following were true:</p>
+        <p>A drug-event pair was labelled as a positive signal if all of the following were true (van Puijenbroek et al., 2002; Benjamini and Hochberg, 1995):</p>
         <ul>
-          <li>ROR &gt; 2.0</li>
-          <li>q_fdr &lt; 0.05</li>
-          <li>a &gt;= 5 reports</li>
+          <li><code>ROR &gt; 2.0</code></li>
+          <li><code>q_fdr &lt; 0.05</code></li>
+          <li><code>a &gt;= 5</code> reports</li>
         </ul>
         <p>In short:</p>
         <ul>
-          <li><strong>Positive class (y=1)</strong>: statistically strong FAERS signal with enough support</li>
-          <li><strong>Negative class (y=0)</strong>: observed in FAERS but does not meet the signal rule, with enough support</li>
+          <li>Positive class (<code>y=1</code>): statistically strong FAERS signal with enough support</li>
+          <li>Negative class (<code>y=0</code>): observed in FAERS but does not meet the signal rule, with enough support</li>
         </ul>
         <p>Quick definitions:</p>
         <ul>
-          <li><strong>ROR (Reporting Odds Ratio)</strong>: effect size for disproportionality</li>
-          <li><strong>q_fdr</strong>: multiple-testing-corrected p-value</li>
-          <li><strong>a</strong>: number of FAERS cases for that drug-event pair</li>
+          <li><code>ROR</code> (Reporting Odds Ratio): effect size for disproportionality (van Puijenbroek et al., 2002)</li>
+          <li><code>q_fdr</code>: multiple-testing-corrected p-value (Benjamini and Hochberg, 1995)</li>
+          <li><code>a</code>: number of FAERS cases for that drug-event pair</li>
         </ul>
         <p>Class sampling in this setup used roughly a 1:1 negative-to-positive ratio.</p>
       </section>
 
       <section class="section">
         <h2>4) Leakage control (what was removed and how it was checked)</h2>
-        <p>Leakage means the model could “peek” at variables that directly encode the target rule.</p>
-        <p>To prevent that, we removed all FAERS signal-rule-derived predictors from training inputs, including:</p>
+        <p>Leakage means the model could “peek” at variables that directly encode the target rule (Kaufman et al., 2012).</p>
+        <p>To prevent that, we removed all FAERS signal-rule-derived predictors from training inputs (Kaufman et al., 2012), including:</p>
         <ul>
           <li>FAERS disproportionality statistics (for example ROR/PRR/IC, p-values, adjusted p-values)</li>
           <li>FAERS report-count style predictors used by the signal rule</li>
@@ -233,43 +230,49 @@
           <li>Graph structure (which entities are connected)</li>
           <li>Non-label-source covariates from OFFSIDES and SIDER</li>
         </ul>
-        <p><strong>Leakage audit:</strong></p>
+        <p>Leakage audit:</p>
         <ul>
           <li>Before training, schema checks rejected forbidden FAERS signal-rule feature patterns.</li>
           <li>Feature manifests were exported so the final input schema was auditable.</li>
         </ul>
-        <div class="note">
-          <p><strong>Important limitation:</strong> In configurations that include a FAERS graph, FAERS co-reporting structure still contributes through graph topology. This is not the same as feeding FAERS signal-rule statistics directly as features.</p>
-        </div>
+        <p>Important limitation to state clearly:</p>
+        <ul>
+          <li>In configurations that include a FAERS graph, FAERS co-reporting structure still contributes through graph topology.</li>
+          <li>This is not the same as feeding FAERS signal-rule statistics directly as features (Kaufman et al., 2012).</li>
+        </ul>
       </section>
 
       <section class="section">
         <h2>5) Model configurations compared</h2>
         <p>We evaluated five configurations:</p>
-        <ul>
+        <ol>
           <li>Edge-only baseline (full features): no graph message passing</li>
           <li>Graph + full features</li>
           <li>Graph + flags only (remove numeric OFFSIDES evidence values)</li>
           <li>No FAERS graph + full features</li>
           <li>No FAERS graph + flags only</li>
-        </ul>
+        </ol>
       </section>
 
       <section class="section">
         <h2>6) Metrics reported</h2>
         <ul>
-          <li><strong>AUROC</strong>: ranking quality across thresholds</li>
-          <li><strong>AUPR</strong>: precision-recall quality (important with class imbalance)</li>
-          <li><strong>ECE</strong>: calibration error (lower is better)</li>
-          <li><strong>Brier score</strong>: probabilistic accuracy/calibration score (lower is better)</li>
-          <li><strong>Uncertainty on safe</strong>: mean predictive entropy for y=0 (non-signal) pairs</li>
-          <li><strong>Uncertainty on unknown</strong>: mean predictive entropy for y=1 (signal) pairs</li>
+          <li>AUROC: ranking quality across thresholds (Fawcett, 2006)</li>
+          <li>AUPR: precision-recall quality (important with class imbalance) (Davis and Goadrich, 2006)</li>
+          <li>ECE: calibration error (lower is better) (Guo et al., 2017)</li>
+          <li>Brier score: probabilistic accuracy/calibration score (lower is better) (Brier, 1950)</li>
+          <li>Uncertainty on safe: mean predictive entropy for <code>y=0</code> (non-signal) pairs (Gal and Ghahramani, 2016)</li>
+          <li>Uncertainty on unknown: mean predictive entropy for <code>y=1</code> (signal) pairs (Gal and Ghahramani, 2016)</li>
         </ul>
       </section>
 
       <section class="section">
         <h2>7) Main results</h2>
-        <p><strong>Setting:</strong> Split: random edge-level split (trans); Seed: 0</p>
+        <p>Setting:</p>
+        <ul>
+          <li>Split: random edge-level split (<code>trans</code>)</li>
+          <li>Seed: 0</li>
+        </ul>
 
         <div class="table-wrap">
           <table>
@@ -334,7 +337,7 @@
           </table>
         </div>
 
-        <p><strong>Interpretation:</strong></p>
+        <p>Interpretation:</p>
         <ul>
           <li>Graph models clearly outperform the edge-only baseline.</li>
           <li>Removing FAERS graph edges lowers performance, showing topology contribution.</li>
@@ -347,7 +350,7 @@
         <p>To test RQ2 directly, we compared the same trained model in two inference modes:</p>
         <ul>
           <li>Deterministic prediction</li>
-          <li>MC-dropout prediction average</li>
+          <li>MC-dropout prediction average (Gal and Ghahramani, 2016)</li>
         </ul>
 
         <div class="table-wrap">
@@ -365,7 +368,7 @@
             </thead>
             <tbody>
               <tr>
-                <td>sof_full</td>
+                <td><code>sof_full</code></td>
                 <td>0.0286</td>
                 <td>0.0278</td>
                 <td>-0.0008</td>
@@ -374,7 +377,7 @@
                 <td>+0.0004</td>
               </tr>
               <tr>
-                <td>sof_flags</td>
+                <td><code>sof_flags</code></td>
                 <td>0.0206</td>
                 <td>0.0234</td>
                 <td>+0.0028</td>
@@ -383,7 +386,7 @@
                 <td>+0.0002</td>
               </tr>
               <tr>
-                <td>so_full</td>
+                <td><code>so_full</code></td>
                 <td>0.0268</td>
                 <td>0.0297</td>
                 <td>+0.0029</td>
@@ -392,7 +395,7 @@
                 <td>+0.0003</td>
               </tr>
               <tr>
-                <td>so_flags</td>
+                <td><code>so_flags</code></td>
                 <td>0.0291</td>
                 <td>0.0311</td>
                 <td>+0.0020</td>
@@ -401,35 +404,31 @@
                 <td>+0.0007</td>
               </tr>
               <tr>
-                <td><strong>Mean Delta across configs</strong></td>
+                <td>Mean Delta across configs</td>
                 <td></td>
                 <td></td>
-                <td><strong>+0.0017</strong></td>
+                <td>+0.0017</td>
                 <td></td>
                 <td></td>
-                <td><strong>+0.0004</strong></td>
+                <td>+0.0004</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <p><strong>Conclusion:</strong></p>
+        <p>Conclusion for this experiment:</p>
         <ul>
-          <li>MC-dropout is useful for uncertainty estimation.</li>
+          <li>MC-dropout is useful for uncertainty estimation (Gal and Ghahramani, 2016).</li>
           <li>A consistent calibration improvement is not demonstrated.</li>
         </ul>
 
-        <p><strong>Recommended claim wording:</strong></p>
-        <div class="quote">
-          “MC-dropout was used to probe predictive uncertainty on the control task; calibration differences versus deterministic inference were mixed in this setup.”
-        </div>
+        <p>Recommended claim wording:</p>
+        <div class="quote">“MC-dropout was used to probe predictive uncertainty on the control task; calibration differences versus deterministic inference were mixed in this setup.”</div>
       </section>
 
       <section class="section">
         <h2>9) One-paragraph methods text (poster-ready)</h2>
-        <div class="quote">
-          “We evaluated a FAERS control task where the model predicts whether an observed drug-event pair is a FAERS signal. Positive labels were defined as pairs meeting a disproportionality rule (ROR &gt; 2.0, q_fdr &lt; 0.05, a &gt;= 5), and negatives were observed non-signal pairs with sufficient support. To control leakage, we excluded all FAERS signal-rule-derived predictors (for example disproportionality statistics and direct signal indicators) from model inputs, while retaining graph topology and non-label-source covariates (OFFSIDES/SIDER). We compared an edge-only baseline against graph variants with and without FAERS edges and with full vs flag-only covariates, and reported AUROC, AUPR, ECE, Brier, and class-conditional predictive entropy. Graph models outperformed edge-only baselines, while deterministic-vs-MC-dropout calibration differences were mixed, supporting MC-dropout as an uncertainty probe rather than a consistent calibration improvement in this setup.”
-        </div>
+        <div class="quote">“We evaluated a FAERS control task where the model predicts whether an observed drug-event pair is a FAERS signal. Positive labels were defined as pairs meeting a disproportionality rule (<code>ROR &gt; 2.0</code>, <code>q_fdr &lt; 0.05</code>, <code>a &gt;= 5</code>) (van Puijenbroek et al., 2002; Benjamini and Hochberg, 1995), and negatives were observed non-signal pairs with sufficient support. To control leakage, we excluded all FAERS signal-rule-derived predictors (for example disproportionality statistics and direct signal indicators) from model inputs (Kaufman et al., 2012), while retaining graph topology and non-label-source covariates (OFFSIDES/SIDER) (Tatonetti et al., 2012; Kuhn et al., 2016). We compared an edge-only baseline against graph variants with and without FAERS edges and with full vs flag-only covariates, and reported AUROC, AUPR, ECE, Brier, and class-conditional predictive entropy (Fawcett, 2006; Davis and Goadrich, 2006; Guo et al., 2017; Brier, 1950; Gal and Ghahramani, 2016). Graph models outperformed edge-only baselines, while deterministic-vs-MC-dropout calibration differences were mixed, supporting MC-dropout as an uncertainty probe (Gal and Ghahramani, 2016) rather than a consistent calibration improvement in this setup.”</div>
       </section>
     </main>
   </div>
