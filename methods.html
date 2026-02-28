@@ -13,7 +13,7 @@
       --muted: #5a6170;
       --line: #e6e8f0;
       --card: #ffffff;
-      --paper: #fafafa;
+      --bg: #fafafa;
     }
 
     * { box-sizing: border-box; }
@@ -21,7 +21,7 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--paper);
+      background: var(--bg);
       color: var(--text);
     }
 
@@ -67,27 +67,21 @@
       line-height: 1.6;
     }
 
-    .section {
-      padding: 0 0 20px;
-      margin: 0 0 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-      margin-bottom: 0;
+    section + section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
     }
 
     h2 {
-      margin: 0 0 12px;
+      margin: 0 0 10px;
       color: var(--navy);
       font-size: 1.2rem;
-      line-height: 1.3;
+      line-height: 1.25;
     }
 
     h3 {
-      margin: 16px 0 10px;
+      margin: 16px 0 8px;
       color: var(--navy);
       font-size: 1rem;
       line-height: 1.3;
@@ -95,8 +89,8 @@
 
     p {
       margin: 0 0 12px;
-      font-size: 0.98rem;
       line-height: 1.7;
+      font-size: 0.98rem;
     }
 
     ul {
@@ -111,29 +105,33 @@
     }
 
     code {
-      font-family: Consolas, Menlo, Monaco, monospace;
+      font-family: "Courier New", Courier, monospace;
       font-size: 0.92em;
-      background: #f5f6fa;
-      border: 1px solid #e5e8f2;
-      border-radius: 6px;
+      background: #f5f7fb;
+      border: 1px solid #e4e8f2;
       padding: 0.08rem 0.3rem;
+      border-radius: 5px;
       word-break: break-word;
     }
 
-    .formula {
-      display: block;
-      margin: 10px 0 12px;
-      padding: 12px 14px;
+    .formula,
+    .note {
       background: #f8f9fc;
-      border: 1px solid #e5e8f2;
+      border: 1px solid var(--line);
       border-radius: 10px;
-      font-family: Consolas, Menlo, Monaco, monospace;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      overflow-x: auto;
+      padding: 14px 16px;
+      margin: 12px 0;
     }
 
-    .table-wrap {
+    .note {
+      color: var(--muted);
+    }
+
+    .metrics-list li {
+      margin-bottom: 4px;
+    }
+
+    .results {
       overflow-x: auto;
       margin-top: 10px;
       border: 1px solid var(--line);
@@ -148,12 +146,12 @@
     }
 
     th, td {
-      padding: 12px 10px;
-      border-bottom: 1px solid var(--line);
       text-align: left;
-      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
       font-size: 0.94rem;
       line-height: 1.5;
+      vertical-align: top;
     }
 
     th {
@@ -164,11 +162,6 @@
 
     tr:last-child td {
       border-bottom: 0;
-    }
-
-    .note {
-      color: var(--muted);
-      font-size: 0.94rem;
     }
 
     @media (max-width: 760px) {
@@ -188,6 +181,7 @@
 
       th, td {
         font-size: 0.9rem;
+        padding: 9px 10px;
       }
     }
   </style>
@@ -198,149 +192,199 @@
 
     <main class="content">
       <h1 class="page-title">Methods</h1>
-      <p class="intro">This page describes the method configuration used to reproduce the poster result regime.</p>
+      <p class="intro">
+        This page summarises the method configuration used to reproduce the poster results.
+      </p>
 
-      <section class="section">
+      <section>
         <h2>1) Scope and code path</h2>
-        <p>The results were reproduced using the dedicated poster analysis notebooks for graph splitting and modelling, together with a runner script for the poster matrix. Inputs were seeded from the baseline processed and exploratory data analysis artefacts, and outputs were written to a separate reproduction directory to avoid conflict with the current setup.</p>
+        <p>
+          The poster results were reproduced through an internal notebook pipeline for graph splitting and modelling,
+          with a dedicated runner script used to generate isolated outputs. Processed and exploratory inputs were seeded
+          from a baseline run, and reproduction outputs were written to a separate location to avoid conflict with the
+          current setup.
+        </p>
       </section>
 
-      <section class="section">
-        <h2>2) Objective and label definition</h2>
-        <p>This task is not positive–unlabelled learning.</p>
-        <p>Binary supervision is defined on observed FAERS pairs:</p>
+      <section>
+        <h2>2) Objective and labelling</h2>
+        <p>
+          This task is a binary FAERS signal classification task and is not positive–unlabelled learning.
+        </p>
         <ul>
-          <li><code>y = 1</code>: FAERS signal (<code>is_signal = True</code>) with a minimum support threshold</li>
-          <li><code>y = 0</code>: FAERS non-signal (<code>is_signal = False</code>) with a minimum support threshold</li>
+          <li><strong>y = 1:</strong> FAERS signal (<code>is_signal=True</code>) with a minimum support threshold</li>
+          <li><strong>y = 0:</strong> FAERS non-signal (<code>is_signal=False</code>) with a minimum support threshold</li>
         </ul>
-        <p>So this is FAERS signal classification for the poster task, not cross-source discovery labelling.</p>
+        <p>
+          The target therefore reflects FAERS signal status for observed drug–event pairs, rather than cross-source
+          discovery labels.
+        </p>
 
         <h3>2.1 Exact FAERS signal rule</h3>
-        <p>In the exploratory data analysis stage, the FAERS signal flag is computed as:</p>
-        <div class="formula">is_signal = (q_fdr &lt; 0.05) AND (ROR &gt; 2.0) AND (a &gt;= 5)</div>
-        <p>where:</p>
+        <div class="formula">
+          <p><code>is_signal = (q_fdr &lt; 0.05) AND (ROR &gt; 2.0) AND (a &gt;= 5)</code></p>
+        </div>
         <ul>
-          <li><code>a</code> = number of unique FAERS cases for the <code>(drug_key, event_key)</code> pair</li>
-          <li><code>q_fdr</code> = Benjamini–Hochberg FDR-adjusted p-value from the 2×2 table chi-square test</li>
-          <li><code>ROR</code> = reporting odds ratio computed with continuity correction (<code>cc = 0.5</code>)</li>
+          <li><strong>a</strong> = number of unique FAERS cases for the <code>(drug_key, event_key)</code> pair</li>
+          <li><strong>q_fdr</strong> = Benjamini–Hochberg FDR-adjusted p-value from the 2×2 table chi-square test</li>
+          <li><strong>ROR</strong> = reporting odds ratio computed with continuity correction (<code>cc = 0.5</code>)</li>
         </ul>
-        <p>Training labels are then formed as:</p>
+        <p>Training labels were then formed as follows:</p>
         <ul>
-          <li>positives: <code>is_signal = True</code> and <code>a &gt;= MIN_A_FOR_POS</code> (default 5)</li>
-          <li>negatives: <code>is_signal = False</code> and <code>a &gt;= MIN_A_FOR_NEG</code> (default 5)</li>
-          <li>class ratio control: <code>NEG_POS_RATIO</code> (default 1.0)</li>
+          <li><strong>Positives:</strong> <code>is_signal=True</code> and <code>a &gt;= 5</code></li>
+          <li><strong>Negatives:</strong> <code>is_signal=False</code> and <code>a &gt;= 5</code></li>
+          <li><strong>Class ratio control:</strong> <code>NEG_POS_RATIO = 1.0</code> by default</li>
         </ul>
       </section>
 
-      <section class="section">
+      <section>
         <h2>3) Data and candidate construction</h2>
-        <p>Inputs come from processed, harmonised artefacts across SIDER, OFFSIDES and FAERS.</p>
-        <p>Label construction uses FAERS disproportionality outputs:</p>
+        <p>
+          Inputs were drawn from processed, harmonised artefacts spanning SIDER, OFFSIDES and FAERS.
+          Label construction used FAERS disproportionality outputs:
+        </p>
         <ul>
-          <li>Positives: FAERS-signalled pairs</li>
-          <li>Negative pool: FAERS-observed non-signals</li>
-          <li>Default balancing: <code>NEG_POS_RATIO = 1.0</code> (approximately balanced classes)</li>
+          <li><strong>Positive class:</strong> FAERS-signalled pairs</li>
+          <li><strong>Negative pool:</strong> FAERS-observed non-signals</li>
+          <li><strong>Default balancing:</strong> approximately balanced classes (<code>NEG_POS_RATIO = 1.0</code>)</li>
         </ul>
       </section>
 
-      <section class="section">
+      <section>
         <h2>4) Splits</h2>
-        <p>The notebooks generate:</p>
+        <p>Three evaluation splits were generated:</p>
         <ul>
-          <li><code>trans</code> (edge-level random split)</li>
-          <li><code>entity</code> (drug holdout)</li>
-          <li><code>time</code> (year-based split)</li>
+          <li><strong>trans</strong> – edge-level random split</li>
+          <li><strong>entity</strong> – drug holdout</li>
+          <li><strong>time</strong> – year-based split</li>
         </ul>
-        <p>For the reproduced table below, evaluation uses <code>split = trans</code>.</p>
+        <p>
+          The poster results shown here use <code>split = trans</code>.
+        </p>
       </section>
 
-      <section class="section">
+      <section>
         <h2>5) Graph and feature variants</h2>
-        <p>Compared configurations:</p>
+        <p>Four configurations were compared:</p>
         <ul>
-          <li><code>so_flags</code> = no FAERS base graph + flags-only edge features</li>
-          <li><code>so_full</code> = no FAERS base graph + full edge features</li>
-          <li><code>sof_flags</code> = FAERS base graph + flags-only edge features</li>
-          <li><code>sof_full</code> = FAERS base graph + full edge features</li>
+          <li><strong>so_flags</strong> – no FAERS base graph + flags-only edge features</li>
+          <li><strong>so_full</strong> – no FAERS base graph + full edge features</li>
+          <li><strong>sof_flags</strong> – FAERS base graph + flags-only edge features</li>
+          <li><strong>sof_full</strong> – FAERS base graph + full edge features</li>
         </ul>
+        <p>
+          Core comparisons are between graph connectivity and OFFSIDES-derived evidence profiles, while keeping
+          label-side FAERS statistics out of edge features where required.
+        </p>
 
-        <p>Leakage control for this task:</p>
-        <ul>
-          <li>Keep non-FAERS label-side statistics out of <code>x_edge</code> where configured</li>
-          <li>Core comparisons are between graph connectivity and OFFSIDES-derived evidence profiles</li>
-        </ul>
-
-        <h3>5.1 Operational leakage control statement</h3>
-        <p>The label source in this task is FAERS disproportionality (the <code>is_signal</code> rule above). To avoid direct label-source leakage into training covariates, the edge-feature schema excludes FAERS-derived signal predictors.</p>
-        <p>Excluded from <code>x_edge</code>:</p>
+        <h3>5.1 Leakage control statement</h3>
+        <p>
+          The label source in this task is FAERS disproportionality. To avoid direct label-source leakage into
+          training covariates, the edge-feature schema excludes FAERS-derived signal predictors.
+        </p>
+        <p><strong>Excluded from <code>x_edge</code>:</strong></p>
         <ul>
           <li><code>in_faers</code></li>
-          <li>all <code>faers_*</code> columns, including <code>faers_a</code>, <code>faers_drug_tot</code>, <code>faers_event_tot</code>, <code>faers_ror</code>, <code>faers_prr</code>, <code>faers_ic</code>, <code>faers_p</code> and <code>faers_q_fdr</code></li>
-          <li>the direct signal flag (<code>is_signal</code>) and transforms derived from FAERS signal statistics</li>
+          <li>All <code>faers_*</code> columns, including:
+            <code>faers_a</code>, <code>faers_drug_tot</code>, <code>faers_event_tot</code>,
+            <code>faers_ror</code>, <code>faers_prr</code>, <code>faers_ic</code>,
+            <code>faers_p</code>, <code>faers_q_fdr</code>
+          </li>
+          <li>Direct signal flags such as <code>is_signal</code> and transforms derived from FAERS signal statistics</li>
         </ul>
-        <p>Allowed in <code>x_edge</code> (full and flags profiles):</p>
+        <p><strong>Allowed in <code>x_edge</code>:</strong></p>
         <ul>
-          <li>source indicators from the non-label source: <code>in_sider</code>, <code>in_offsides</code></li>
-          <li>OFFSIDES statistics: <code>offsides_A</code>, <code>offsides_PRR</code> and <code>log1p</code> transforms (for full features)</li>
+          <li>Non-label source indicators: <code>in_sider</code>, <code>in_offsides</code></li>
+          <li>OFFSIDES statistics: <code>offsides_A</code>, <code>offsides_PRR</code>, and log1p transforms for full profiles</li>
         </ul>
 
         <h3>5.2 Leakage audit mechanism</h3>
-        <p>Hard assertions are executed before bundle export:</p>
-        <div class="formula">assert not any(c.startswith("faers_") for c in edge_feature_cols)
-assert "in_faers" not in edge_feature_cols</div>
-        <p>In addition, a feature manifest is written per run with:</p>
+        <p>
+          Before export, hard assertions were applied to verify that FAERS-derived predictors were absent from the
+          edge-feature schema:
+        </p>
+        <div class="formula">
+          <p><code>assert not any(c.startswith("faers_") for c in edge_feature_cols)</code></p>
+          <p><code>assert "in_faers" not in edge_feature_cols</code></p>
+        </div>
+        <p>
+          A feature manifest was also written per run, recording:
+        </p>
         <ul>
           <li><code>allowed_edge_features</code></li>
           <li><code>forbidden_patterns = ["faers_*", "in_faers"]</code></li>
         </ul>
-        <p>This provides an auditable schema-level check that FAERS disproportionality predictors derived from the label source are not part of the training edge features.</p>
+        <p>
+          This provides an auditable schema-level check that FAERS disproportionality predictors are not part of
+          training edge features.
+        </p>
 
         <h3>5.3 Residual co-occurrence information</h3>
-        <p>For <code>sof_*</code> variants, FAERS edges are present in graph topology (message-passing adjacency). This carries observational co-occurrence structure by design, but not direct inclusion of the FAERS signal-rule statistics in <code>x_edge</code>.</p>
-        <p>Interpretation of adjacency contribution is handled through ablations:</p>
-        <ul>
-          <li><code>so_*</code> (no FAERS base graph)</li>
-          <li><code>sof_*</code> (with FAERS base graph)</li>
-        </ul>
+        <p>
+          In <code>sof_*</code> variants, FAERS edges remain present in the graph topology used for message passing.
+          This retains observational co-occurrence structure by design, while still excluding the direct FAERS signal
+          rule statistics from <code>x_edge</code>.
+        </p>
+        <p>
+          The contribution of adjacency is therefore interpreted through ablations:
+          <code>so_*</code> (no FAERS base graph) versus <code>sof_*</code> (with FAERS base graph).
+        </p>
       </section>
 
-      <section class="section">
+      <section>
         <h2>6) Models and metrics</h2>
-        <p>Models:</p>
+        <p><strong>Models compared:</strong></p>
         <ul>
-          <li>Edge-only baseline (<code>EdgeMLP</code> on <code>x_edge</code>)</li>
+          <li>Edge-only baseline (<strong>EdgeMLP</strong> on <code>x_edge</code>)</li>
           <li>Heterogeneous GNN (graph-aware model)</li>
         </ul>
 
-        <p>Reported metrics:</p>
-        <ul>
+        <p><strong>Reported metrics:</strong></p>
+        <ul class="metrics-list">
           <li>AUROC</li>
           <li>AUPR</li>
           <li>ECE</li>
-          <li>Brier</li>
-          <li>Uncertainty on safe / unknown (mean MC-dropout predictive entropy by class)</li>
+          <li>Brier score</li>
+          <li>Uncertainty on <em>safe</em> / <em>unknown</em> (mean MC-dropout predictive entropy by class)</li>
         </ul>
 
-        <p>Uncertainty semantics:</p>
+        <p><strong>Uncertainty semantics:</strong></p>
         <ul>
           <li><strong>safe</strong> = <code>y = 0</code> (FAERS non-signal)</li>
           <li><strong>unknown</strong> = <code>y = 1</code> (FAERS signal)</li>
         </ul>
 
-        <h3>6.1 Reviewer-facing wording</h3>
-        <p>For manuscripts and posters, prefer <strong>leakage-controlled</strong> or <strong>schema-audited leakage control</strong> over an unqualified <strong>leakage-safe</strong> claim, unless the concrete exclusions and audit checks listed above are shown alongside it.</p>
+        <div class="note">
+          For reviewer-facing wording, <strong>leakage-controlled</strong> or <strong>schema-audited leakage control</strong>
+          is preferable to an unqualified “leakage-safe” claim unless the concrete exclusions and audit checks above are
+          presented alongside it.
+        </div>
+
+        <h3>6.1 RQ2 uncertainty-method ablation</h3>
+        <p>
+          To address RQ2 directly, calibration and accuracy metrics were computed on the same trained model and test split using:
+        </p>
+        <ul>
+          <li>a deterministic head</li>
+          <li>MC-dropout predictive mean</li>
+        </ul>
+        <p>
+          On this control task, MC-dropout was useful for uncertainty probing, but calibration gains were mixed rather
+          than consistently improved.
+        </p>
+        <div class="note">
+          Recommended wording: <strong>MC-dropout was used to quantify predictive uncertainty on the control task;
+          deterministic-versus-MC calibration differences were mixed in this setup.</strong>
+        </div>
       </section>
 
-      <section class="section">
+      <section>
         <h2>7) Reproduced results</h2>
-        <p>Setting:</p>
-        <ul>
-          <li>isolated reproduction run</li>
-          <li><code>split: trans</code></li>
-          <li><code>seed: 0</code></li>
-        </ul>
+        <p>
+          Results below are shown for the <code>trans</code> split.
+        </p>
 
-        <div class="table-wrap">
+        <div class="results">
           <table>
             <thead>
               <tr>
@@ -402,8 +446,6 @@ assert "in_faers" not in edge_feature_cols</div>
             </tbody>
           </table>
         </div>
-
-        <p class="note">Table artefacts were written to CSV, Markdown and JSON files in the reproduction output directory.</p>
       </section>
     </main>
   </div>
