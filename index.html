@@ -3,15 +3,187 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Poster Companion</title>
+  <title>Leakage-safe Heterogeneous GNNs for Pharmacovigilance</title>
+  <style>
+    :root {
+      --gold: #b07a00;
+      --navy: #353754;
+      --border: #3d4591;
+      --paper: #f2f2f2;
+      --text: #1f2430;
+      --muted: #5a6170;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fafafa;
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1220px;
+      margin: 24px auto;
+      padding: 0 16px 32px;
+    }
+
+    .hero {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      padding: 24px 28px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .title {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(2rem, 4.8vw, 4.3rem);
+      line-height: 0.95;
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+
+    .subtitle {
+      margin: 18px 0 8px;
+      color: var(--navy);
+      font-size: clamp(1rem, 1.8vw, 1.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(0.95rem, 1.2vw, 1.25rem);
+      line-height: 1.3;
+    }
+
+    .logo {
+      text-align: right;
+    }
+
+    .logo img {
+      max-width: 240px;
+      width: min(22vw, 240px);
+      height: auto;
+      display: block;
+    }
+
+    .content {
+      margin-top: 20px;
+      background: white;
+      border: 1px solid #e3e6ef;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    .content p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      border: 1px solid #d9deea;
+      border-radius: 14px;
+      padding: 18px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .logo {
+        text-align: left;
+      }
+
+      .logo img {
+        width: min(55vw, 240px);
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Poster Companion</h1>
-  <p>Select a section:</p>
-  <ul>
-    <li><a href="references.html">References</a></li>
-    <li><a href="methods.html">Methods</a></li>
-    <li><a href="graph.html">Subset Graph</a></li>
-  </ul>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <h1 class="title">Leakage-safe Heterogeneous GNNs<br>for Pharmacovigilance</h1>
+        <p class="subtitle">Predicting FAERS disproportionality signals from SIDER 4.1 + OFFSIDES + FAERS 2025Q4</p>
+        <p class="meta">Thomas Moerman · Advisor: Dr Brett Drury · University of Liverpool · MSc Artificial Intelligence · Mar 2026</p>
+      </div>
+
+      <div class="logo">
+        <img src="uol-logo.png" alt="University of Liverpool logo">
+      </div>
+    </header>
+
+    <main class="content">
+      <p>Supplementary material for the poster. Open a section below.</p>
+
+      <div class="grid">
+        <a class="card" href="references.html">
+          <h2>References</h2>
+          <p>Full bibliography and source list.</p>
+        </a>
+
+        <a class="card" href="methods.html">
+          <h2>Methods</h2>
+          <p>Additional methodological details and notes.</p>
+        </a>
+
+        <a class="card" href="graph.html">
+          <h2>Subset Graph</h2>
+          <p>Interactive HTML view of the graph structure.</p>
+        </a>
+      </div>
+
+      <p class="footer-note">This page is designed as a mobile-friendly companion page for the poster QR code.</p>
+    </main>
+  </div>
 </body>
 </html>
