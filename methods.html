@@ -219,6 +219,7 @@
       <section class="section">
         <h2>4) Leakage control (what was removed and how it was checked)</h2>
         <p>Leakage means the model could “peek” at variables that directly encode the target rule (Kaufman et al., 2012).</p>
+        <p>To control leakage, we removed all label-source-derived disproportionality features (for example FAERS signal statistics and direct signal flags) from training inputs, and retained only graph topology and non-label-source covariates.</p>
         <p>To prevent that, we removed all FAERS signal-rule-derived predictors from training inputs (Kaufman et al., 2012), including:</p>
         <ul>
           <li>FAERS disproportionality statistics (for example ROR/PRR/IC, p-values, adjusted p-values)</li>
