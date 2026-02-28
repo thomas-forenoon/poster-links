@@ -422,14 +422,6 @@
           <li>A consistent calibration improvement is not demonstrated.</li>
         </ul>
 
-        <p>Recommended claim wording:</p>
-        <div class="quote">“MC-dropout was used to probe predictive uncertainty on the control task; calibration differences versus deterministic inference were mixed in this setup.”</div>
-      </section>
-
-      <section class="section">
-        <h2>9) One-paragraph methods text (poster-ready)</h2>
-        <div class="quote">“We evaluated a FAERS control task where the model predicts whether an observed drug-event pair is a FAERS signal. Positive labels were defined as pairs meeting a disproportionality rule (<code>ROR &gt; 2.0</code>, <code>q_fdr &lt; 0.05</code>, <code>a &gt;= 5</code>) (van Puijenbroek et al., 2002; Benjamini and Hochberg, 1995), and negatives were observed non-signal pairs with sufficient support. To control leakage, we excluded all FAERS signal-rule-derived predictors (for example disproportionality statistics and direct signal indicators) from model inputs (Kaufman et al., 2012), while retaining graph topology and non-label-source covariates (OFFSIDES/SIDER) (Tatonetti et al., 2012; Kuhn et al., 2016). We compared an edge-only baseline against graph variants with and without FAERS edges and with full vs flag-only covariates, and reported AUROC, AUPR, ECE, Brier, and class-conditional predictive entropy (Fawcett, 2006; Davis and Goadrich, 2006; Guo et al., 2017; Brier, 1950; Gal and Ghahramani, 2016). Graph models outperformed edge-only baselines, while deterministic-vs-MC-dropout calibration differences were mixed, supporting MC-dropout as an uncertainty probe (Gal and Ghahramani, 2016) rather than a consistent calibration improvement in this setup.”</div>
-      </section>
     </main>
   </div>
 </body>
